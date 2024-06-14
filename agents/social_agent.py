@@ -41,9 +41,8 @@ def extract_social_content(result):
         return f"Error: {str(e)}"
 
 def social_agent(current_tasks, response):
-    if (len(current_tasks) == 0){
+    if (len(current_tasks) == 0):
         return "Why don't you make a final Social Media post today? Congratulations on your incredible acheivement!"
-    }
     client = OpenAI(
         api_key=os.getenv("OPENAI_API_KEY"),
     )
