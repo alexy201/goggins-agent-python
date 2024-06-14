@@ -24,7 +24,7 @@ current_tasks = []
 
 def after_onboard(tasks, history):
     print("---------------------------------------------------------------------------")
-    print("--------------------------------ONBOARDING!--------------------------------")
+    print("-----------------------------ONBOARDING DONE!------------------------------")
     print("---------------------------------------------------------------------------")
 
     onboard = f"User's Onboarding Messages {get_current_date_time()}: "
@@ -105,6 +105,6 @@ if __name__ == "__main__":
     ]
 }
 """
-    history = ['I want to get laid by december', 'can you put more events and check-ins on there, make it more specific']
+    history = ['I want to improve my social and dating skills', 'can you put more events and check-ins on there, make it more specific']
     after_onboard(tasks, history)
     start_goggins()

@@ -47,8 +47,8 @@ def extract_decision_content(result):
         return f"Error: {str(e)}"
 
 def decision_agent(current_tasks, response):
-    if (len(current_tasks) == 0):
-        return "Why don't you make a final Social Media post today? Congratulations on your incredible acheivement!"
+    if (len(current_tasks['tasks']) == 0):
+        return """{"social_update": "Why don't you make a final Social Media post today? Congratulations on your incredible acheivement!"}"""
     client = OpenAI(
         api_key=os.getenv("OPENAI_API_KEY"),
     )

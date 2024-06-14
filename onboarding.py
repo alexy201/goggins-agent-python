@@ -37,7 +37,7 @@ tools = [
                             },
                             "completion_day": {
                                 "type": "string",
-                                "description": "The future day to complete this task in the format MM/DD/YYYY. DO NOT EVER RETURN ANY OTHER FORMAT!!!!)"
+                                "description": "The future day to complete this task in the format MM/DD/YYYY. The future day to complete this task IN THE FORMAT MM/DD/YYYY. DO NOT EVER RETURN ANY OTHER FORMAT!!!!)"
                             }
                         }
                     }
