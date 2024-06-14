@@ -13,14 +13,20 @@ tools = [
   {
     "type": "function",
     "function": {
-        "name": "socialMediaUpdate",
-        "description": "Call this function. If you think it is appropriate for the user to make an update on their progress to social media, include the message parameter.",
+        "name": "decisionUpdate",
+        "description": """Call this function. If you think it is appropriate for the user to make an update on their progress to social media, include the message parameter.
+                        If you think it is appropriate to charge the user for a monetary value (lack of progress), include the charge parameter.""",
         "parameters": {
             "type": "object",
             "properties": {
-                "message": {
+                "social_update": {
                     "type": "string",
-                    "description": "Message to the user asking for an update that is related to the current task/goal if appropriate. NOT MESSAGE FOR THE USER TO POST."
+                    "description": """Message to the user requesting them to post a social update that is related to the current task/goal if appropriate. 
+                    NOT DIRECT MESSAGE FOR THE USER TO POST ON SOCIAL MEDIA, just an ask."""
+                },
+                "charge": {
+                    "type": "string",
+                    "description": "A dollar amount (in the format $xx.xx) that charges the user and keeps them accountable if the goals are not being met."
                 }
             }
         }
@@ -28,7 +34,7 @@ tools = [
   }
 ]
 
-def extract_social_content(result):
+def extract_decision_content(result):
     try:
         # Check if there is a valid response message
         if result.choices and result.choices[0].message and result.choices[0].message.tool_calls:
@@ -40,7 +46,7 @@ def extract_social_content(result):
     except (IndexError, KeyError) as e:
         return f"Error: {str(e)}"
 
-def social_agent(current_tasks, response):
+def decision_agent(current_tasks, response):
     if (len(current_tasks) == 0):
         return "Why don't you make a final Social Media post today? Congratulations on your incredible acheivement!"
     client = OpenAI(
@@ -51,7 +57,7 @@ def social_agent(current_tasks, response):
     completion_day = tmp['completion_day']
     headline = current_tasks['headline']
     context = context_agent(query=description, top_results_num=5)
-    prompt = f'Determine whether it is appropriate for the user to make a social update.\n'
+    prompt = f'Determine whether it is appropriate for the user to make a social update, or be charged a monetary value for lack of progress.\n'
     if context:
         prompt += 'Take into account the previous information you\'ve gotten from the user:' + consolidate_context(context)
     prompt += f'\nYour ultimate goal is to help the user: {headline}. Here is the current list of tasks to be done: {current_tasks} \n\n\n\n'
@@ -59,13 +65,13 @@ def social_agent(current_tasks, response):
     completion = client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": """You are part of Goggins AI, an AI agent that acts as an accountability buddy. You are the social media agent.
+            {"role": "system", "content": """You are part of Goggins AI, an AI agent that acts as an accountability buddy. You are the decision agent.
              Read the context from the user as well as dates you got that context. Given the task descriptions, determine whether a social update on the user's progress
-             is reasonable. YOU MUST CALL THE socialMediaUpdate FUNCTION BUT DON'T HAVE TO INCLUDE ANY PARAMETERS IF AN UPDATE IS NOT NEEDED. AGAIN, DO NOT ALWAYS MAKE THE SURE 
-             POST A SOCIAL UPDATE!!!!"""},
+             is reasonable and/or a monetary penalty. YOU MUST CALL THE decisionUpdate FUNCTION BUT DON'T HAVE TO INCLUDE ANY PARAMETERS IF AN UPDATE/CHARGE IS NOT NEEDED. AGAIN, DO NOT ALWAYS MAKE THE USER 
+             POST A SOCIAL UPDATE OR PAY A FINE!!!!"""},
             {"role": "user", "content": prompt}
         ],
         tools=tools,
         tool_choice="auto"
     )
-    return extract_social_content(completion)
+    return extract_decision_content(completion)

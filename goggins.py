@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 from agents.checkin_agent import process_user_agent, prompt_user_agent
 from agents.planning_agent import planning_agent
-from agents.social_agent import social_agent
+from agents.decision_agent import decision_agent
 from utils import get_current_date_time
 
 load_dotenv()
@@ -53,7 +53,8 @@ def start_goggins():
         current_tasks = json.loads(tmp)
         print("----------------------------NEW TASK PLAN----------------------------")
         print(json.dumps(current_tasks, indent=4))
-        print(f"SOCIAL: {social_agent(current_tasks, checkin)}")
+        decision = json.loads(decision_agent(current_tasks, checkin))
+        print(f"AGENT DECISION: {json.dumps(decision, indent=4)}")
     print("CONGRATULATIONS! YOU'VE COMPLETED THE GOAL")
 
     
