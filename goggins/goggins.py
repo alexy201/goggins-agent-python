@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from agents.checkin_agent import process_user_agent, prompt_user_agent
 from agents.planning_agent import planning_agent
 from agents.decision_agent import decision_agent
-from utils import get_current_date_time
+from goggins.utils import get_current_date_time
 
 load_dotenv()
 
