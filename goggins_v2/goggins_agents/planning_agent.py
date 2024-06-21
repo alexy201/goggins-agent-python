@@ -12,7 +12,8 @@ tools = [
     "type": "function",
     "function": {
         "name": "createPlan",
-        "description": "Call this function if the request asks to create or edit a plan to accomplish a user's goal",
+        "description": """Call this function if the request asks to create or edit a plan to accomplish a user's goal.
+        Remember to delete tasks if the user has reasonably and successfully completed them.""",
         "parameters": {
             "type": "object",
             "properties": {
@@ -31,7 +32,8 @@ tools = [
                             },
                             "completion_day": {
                                 "type": "string",
-                                "description": "The future day to complete this task in the format MM/DD/YYYY. DO NOT EVER RETURN ANY OTHER FORMAT!!!!)"
+                                "description": """The future day to complete this task in the format MM/DD/YYYY. DO NOT EVER RETURN ANY OTHER FORMAT!!!!
+                                Again, all days must be in the future (NOT ON THE SAME DAY)."""
                             }
                         }
                     }

@@ -40,10 +40,8 @@ def extract_decision_content(result):
         if result.choices and result.choices[0].message and result.choices[0].message.tool_calls:
             for tool_call in result.choices[0].message.tool_calls:
                 return tool_call.function.arguments
-            print("Error: Something went wrong")
             return "Error: Something went wrong"
         else:
-            print("No Social Media Post Today!")
             return "No Social Media Post Today!"
     except (IndexError, KeyError) as e:
         return f"Error: {str(e)}"

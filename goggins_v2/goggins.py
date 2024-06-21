@@ -37,8 +37,12 @@ def start_goggins():
         current_tasks = json.loads(tmp)
         print("----------------------------NEW TASK PLAN----------------------------")
         print(json.dumps(current_tasks, indent=4))
-        decision = json.loads(decision_agent(current_tasks, checkin, opinion))
-        print(f"AGENT DECISION: {json.dumps(decision, indent=4)}")
+        str = decision_agent(current_tasks, checkin, opinion)
+        if str is "No Social Media Post Today!" or str is "Error: Something went wrong":
+            print(f"AGENT DECISION: {str}")
+        else:
+            decision = json.loads(decision_agent(current_tasks, checkin, opinion))
+            print(f"AGENT DECISION: {json.dumps(decision, indent=4)}")
     print("CONGRATULATIONS! YOU'VE COMPLETED THE GOAL")
 
 
