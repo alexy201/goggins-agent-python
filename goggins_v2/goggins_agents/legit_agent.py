@@ -27,7 +27,7 @@ def validate_file(file_path):
         file_path.endswith('.jpg') or file_path.endswith('.jpeg')
         or file_path.endswith('.JPEG') or file_path.endswith('.png')
         or file_path.endswith('.svg') or file_path.endswith('.PNG')
-        or file_path.endswith('.JPG')
+        or file_path.endswith('.JPG') or file_path.endswith('.HEIC')
     )
 
 def get_file_input(res):
