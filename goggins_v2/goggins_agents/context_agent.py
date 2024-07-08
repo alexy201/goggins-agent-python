@@ -25,7 +25,7 @@ def context_agent(query: str, top_results_num: int):
     img_embedding_function = OpenCLIPEmbeddingFunction()
     data_loader = ImageLoader()
 
-    chromadb_client = chromadb.PersistentClient(path="chroma/")
+    chromadb_client = chromadb.Client()
     collection = chromadb_client.get_collection(
         name="goggins_demo",
         embedding_function=img_embedding_function,

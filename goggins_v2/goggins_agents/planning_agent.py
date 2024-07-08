@@ -1,4 +1,4 @@
-import chromadb, os
+import os
 from dotenv import load_dotenv
 from openai import OpenAI
 from goggins_agents.context_agent import context_agent

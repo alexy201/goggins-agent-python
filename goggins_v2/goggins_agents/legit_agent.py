@@ -1,5 +1,5 @@
 import base64
-import chromadb, os, json, datetime
+import os, json, datetime
 from dotenv import load_dotenv
 from goggins_agents.context_agent import context_agent
 from utils import consolidate_text, encode_image

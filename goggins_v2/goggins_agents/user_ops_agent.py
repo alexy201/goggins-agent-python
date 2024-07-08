@@ -28,7 +28,7 @@ def process_user_agent(agent_prompt, response, current_tasks, opinion, image):
     img_embedding_function = OpenCLIPEmbeddingFunction()
     data_loader = ImageLoader()
 
-    chromadb_client = chromadb.PersistentClient(path="chroma/")
+    chromadb_client = chromadb.Client()
     collection = chromadb_client.get_collection(
         name="goggins_demo",
         embedding_function=img_embedding_function,
@@ -60,7 +60,7 @@ def onboard_context(history):
     img_embedding_function = OpenCLIPEmbeddingFunction()
     data_loader = ImageLoader()
 
-    chromadb_client = chromadb.PersistentClient(path="chroma/")
+    chromadb_client = chromadb.Client()
     collection = chromadb_client.create_collection(
         name="goggins_demo",
         embedding_function=img_embedding_function,
